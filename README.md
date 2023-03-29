@@ -2,6 +2,7 @@
 
 ```
 Use your favorite Java editor to open the code and run BlockGame.java
+Enjoy your game:)
 ```
 
 ## License
