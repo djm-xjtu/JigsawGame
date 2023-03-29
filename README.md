@@ -1,7 +1,7 @@
 ## How to start your game
 
 ```
-Use your favorite Java Editor to open the code and run BlockGame.java
+Use your favorite Java editor to open the code and run BlockGame.java
 ```
 
 ## License
