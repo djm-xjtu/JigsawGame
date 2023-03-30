@@ -24,6 +24,7 @@ public class PerimeterGoal extends Goal{
 		}
 		return count;
 	}
+	
 
 	@Override
 	public String description() {

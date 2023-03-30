@@ -100,6 +100,7 @@ public class Block {
   *  
   * The order in which the blocks to draw appear in the list does NOT matter.
   */
+
  public ArrayList<BlockToDraw> getBlocksToDraw() {
   ArrayList<BlockToDraw> blockToDraws = new ArrayList<>();
   if(this.children.length == 0){

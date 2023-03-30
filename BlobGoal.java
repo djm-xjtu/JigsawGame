@@ -33,6 +33,7 @@ public class BlobGoal extends Goal{
 	}
 
 
+
 	public int undiscoveredBlobSize(int i, int j, Color[][] unitCells, boolean[][] visited) {
 		if(unitCells[i][j] != this.targetGoal){
 			return 0;
