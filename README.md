@@ -9,4 +9,4 @@ Enjoy your game:)
 
 [MIT](https://opensource.org/licenses/MIT)
 
-Copyright (c) 2022-present group 66
+Copyright (c) 2023-present
