@@ -43,12 +43,8 @@ public class Block {
   * Creates a random block given its level and a max depth. 
   * 
   * xCoord, yCoord, size, and highlighted should not be initialized
-  * (i.e. they will all be initialized by default)
   */
  public Block(int lvl, int maxDepth) {
-  /*
-   * ADD YOUR CODE HERE
-   */
   this.level = lvl;
   this.maxDepth = maxDepth;
   boolean split = gen.nextDouble() < exp(-0.25*level);
@@ -77,9 +73,6 @@ public class Block {
   *  coordinates of the top left corner of the block. 
   */
  public void updateSizeAndPosition (int size, int xCoord, int yCoord) {
-  /*
-   * ADD YOUR CODE HERE
-   */
   if(size > 0 && size % 2 == 0){
    this.xCoord = xCoord;
    this.yCoord = yCoord;
@@ -108,9 +101,6 @@ public class Block {
   * The order in which the blocks to draw appear in the list does NOT matter.
   */
  public ArrayList<BlockToDraw> getBlocksToDraw() {
-  /*
-   * ADD YOUR CODE HERE
-   */
   ArrayList<BlockToDraw> blockToDraws = new ArrayList<>();
   if(this.children.length == 0){
     blockToDraws.add(new BlockToDraw(FRAME_COLOR, this.xCoord, this.yCoord, this.size, 3));
@@ -124,9 +114,6 @@ public class Block {
   }
  }
 
- /*
-  * This method is provided and you should NOT modify it. 
-  */
  public BlockToDraw getHighlightedFrame() {
   return new BlockToDraw(GameColors.HIGHLIGHT_COLOR, this.xCoord, this.yCoord, this.size, 5);
  }
@@ -150,9 +137,6 @@ public class Block {
   * - if (x,y) is not within this Block, return null.
   */
  public Block getSelectedBlock(int x, int y, int lvl) {
-  /*
-   * ADD YOUR CODE HERE
-   */
   if(lvl < this.level || lvl > maxDepth){
    throw new IllegalArgumentException("Invalid level when selecting block " + lvl);
   }
@@ -186,9 +170,6 @@ public class Block {
   * 
   */
  public void reflect(int direction) {
-  /*
-   * ADD YOUR CODE HERE
-   */
   if(direction != 0 && direction != 1){
    throw new IllegalArgumentException("Invalid direction: " + direction);
   }
@@ -357,9 +338,6 @@ public class Block {
   * counterclockwise. If this Block has no children, do nothing.
   */
  public void rotate(int direction) {
-  /*
-   * ADD YOUR CODE HERE
-   */
   if(direction != 0 && direction != 1){
    throw new IllegalArgumentException("Invalid direction: " + direction);
   }
@@ -413,9 +391,6 @@ public class Block {
   * 
   */
  public boolean smash() {
-  /*
-   * ADD YOUR CODE HERE
-   */
   if(this.level == 0 || this.level == this.maxDepth){
    return false;
   }
@@ -478,9 +453,6 @@ public class Block {
   * arr[0][0] is the color of the unit cell in the upper left corner of this Block.
   */
  public Color[][] flatten() {
-  /*
-   * ADD YOUR CODE HERE
-   */
   int len = (int)pow(2, this.maxDepth - this.level);
   Color[][] flatten_color = new Color[len][len];
   if(this.children.length == 0){
@@ -535,10 +507,6 @@ public class Block {
  }
 
 
- /*
-  * The next 5 methods are needed to get a text representation of a block. 
-  * You can use them for debugging. You can modify these methods if you wish.
-  */
  public String toString() {
   return String.format("pos=(%d,%d), size=%d, level=%d"
     , this.xCoord, this.yCoord, this.size, this.level);

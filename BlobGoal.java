@@ -15,9 +15,6 @@ public class BlobGoal extends Goal{
 
 	@Override
 	public int score(Block board) {
-		/*
-		 * ADD YOUR CODE HERE
-		 */
 		Color[][] board_colors = board.flatten();
 		int count = 0;
 		for(int i = 0; i < board_colors.length; i++){
@@ -37,9 +34,6 @@ public class BlobGoal extends Goal{
 
 
 	public int undiscoveredBlobSize(int i, int j, Color[][] unitCells, boolean[][] visited) {
-		/*
-		 * ADD YOUR CODE HERE
-		 */
 		if(unitCells[i][j] != this.targetGoal){
 			return 0;
 		}

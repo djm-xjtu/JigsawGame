@@ -10,9 +10,6 @@ public class PerimeterGoal extends Goal{
 
 	@Override
 	public int score(Block board) {
-		/*
-		 * ADD YOUR CODE HERE
-		 */
 		Color[][] board_colors = board.flatten();
 		int count = 0;
 		int row = board_colors.length;
