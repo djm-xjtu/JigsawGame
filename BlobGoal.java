@@ -15,6 +15,9 @@ public class BlobGoal extends Goal{
 
 	@Override
 	public int score(Block board) {
+		/*
+		 * ADD YOUR CODE HERE
+		 */
 		Color[][] board_colors = board.flatten();
 		int count = 0;
 		for(int i = 0; i < board_colors.length; i++){
@@ -33,15 +36,17 @@ public class BlobGoal extends Goal{
 	}
 
 
-
 	public int undiscoveredBlobSize(int i, int j, Color[][] unitCells, boolean[][] visited) {
+		/*
+		 * ADD YOUR CODE HERE
+		 */
 		if(unitCells[i][j] != this.targetGoal){
 			return 0;
 		}
 		Queue<int[]> q = new ArrayDeque<>();
 		int[] a = {i, j};
 		q.add(a);
-		int count = 0;
+		int count = 1;
 		int[] dx = {-1, 0, 1, 0};
 		int[] dy = {0, -1, 0, 1};
 		while(!q.isEmpty()) {

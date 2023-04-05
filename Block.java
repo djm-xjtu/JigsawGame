@@ -19,7 +19,7 @@ public class Block {
 
  private Block[] children; // {UR, UL, LL, LR}
 
- public static Random gen = new Random(2);
+ public static Random gen = new Random();
  
  
  /*
@@ -43,12 +43,17 @@ public class Block {
   * Creates a random block given its level and a max depth. 
   * 
   * xCoord, yCoord, size, and highlighted should not be initialized
+  * (i.e. they will all be initialized by default)
   */
  public Block(int lvl, int maxDepth) {
+  /*
+   * ADD YOUR CODE HERE
+   */
   this.level = lvl;
   this.maxDepth = maxDepth;
-  boolean split = gen.nextDouble() < exp(-0.25*level);
+  boolean split = gen.nextDouble() < exp(-0.25*lvl);
   if(lvl == maxDepth) split = false;
+
   if(split){
    Block[] blocks = new Block[4];
    blocks[0] = new Block(lvl+1, maxDepth);
@@ -73,7 +78,10 @@ public class Block {
   *  coordinates of the top left corner of the block. 
   */
  public void updateSizeAndPosition (int size, int xCoord, int yCoord) {
-  if(size > 0 && size % 2 == 0){
+  /*
+   * ADD YOUR CODE HERE
+   */
+  if(size > 0 && (size % 2 == 0 || size == 1)){
    this.xCoord = xCoord;
    this.yCoord = yCoord;
    this.size = size;
@@ -100,12 +108,14 @@ public class Block {
   *  
   * The order in which the blocks to draw appear in the list does NOT matter.
   */
-
  public ArrayList<BlockToDraw> getBlocksToDraw() {
+  /*
+   * ADD YOUR CODE HERE
+   */
   ArrayList<BlockToDraw> blockToDraws = new ArrayList<>();
   if(this.children.length == 0){
-    blockToDraws.add(new BlockToDraw(FRAME_COLOR, this.xCoord, this.yCoord, this.size, 3));
-    blockToDraws.add(new BlockToDraw(this.color, this.xCoord, this.yCoord, this.size, 0));
+   blockToDraws.add(new BlockToDraw(FRAME_COLOR, this.xCoord, this.yCoord, this.size, 3));
+   blockToDraws.add(new BlockToDraw(this.color, this.xCoord, this.yCoord, this.size, 0));
    return blockToDraws;
   } else{
    for (Block block : this.children){
@@ -113,8 +123,12 @@ public class Block {
    }
    return blockToDraws;
   }
+
  }
 
+ /*
+  * This method is provided and you should NOT modify it. 
+  */
  public BlockToDraw getHighlightedFrame() {
   return new BlockToDraw(GameColors.HIGHLIGHT_COLOR, this.xCoord, this.yCoord, this.size, 5);
  }
@@ -138,6 +152,9 @@ public class Block {
   * - if (x,y) is not within this Block, return null.
   */
  public Block getSelectedBlock(int x, int y, int lvl) {
+  /*
+   * ADD YOUR CODE HERE
+   */
   if(lvl < this.level || lvl > maxDepth){
    throw new IllegalArgumentException("Invalid level when selecting block " + lvl);
   }
@@ -171,116 +188,15 @@ public class Block {
   * 
   */
  public void reflect(int direction) {
+  /*
+   * ADD YOUR CODE HERE
+   */
   if(direction != 0 && direction != 1){
    throw new IllegalArgumentException("Invalid direction: " + direction);
   }
   if(this.children.length == 0) return;
-//  if(direction == 1){
-//   Block block0 = new Block();
-//   block0.xCoord = this.children[0].xCoord;
-//   block0.yCoord = this.children[0].yCoord;
-//   block0.color = this.children[3].color;
-//   block0.size = this.children[0].size;
-//   block0.maxDepth = this.children[0].maxDepth;
-//   block0.level = this.children[0].level;
-//   block0.children = this.children[3].children;
-//   //TODO 把子元素的位置改变
-//
-//   Block block3 = new Block();
-//   block3.xCoord = this.children[3].xCoord;
-//   block3.yCoord = this.children[3].yCoord;
-//   block3.color = this.children[0].color;
-//   block3.size = this.children[3].size;
-//   block3.maxDepth = this.children[3].maxDepth;
-//   block3.level = this.children[3].level;
-//   block3.children = this.children[0].children;
-//   //TODO 把子元素的位置改变
-//
-//   Block block2 = new Block();
-//   block2.xCoord = this.children[2].xCoord;
-//   block2.yCoord = this.children[2].yCoord;
-//   block2.color = this.children[1].color;
-//   block2.size = this.children[2].size;
-//   block2.maxDepth = this.children[2].maxDepth;
-//   block2.level = this.children[2].level;
-//   block2.children = this.children[1].children;
-//   //TODO 把子元素的位置改变
-//
-//
-//   Block block1 = new Block();
-//   block1.xCoord = this.children[1].xCoord;
-//   block1.yCoord = this.children[1].yCoord;
-//   block1.color = this.children[2].color;
-//   block1.size = this.children[1].size;
-//   block1.maxDepth = this.children[1].maxDepth;
-//   block1.level = this.children[1].level;
-//   block1.children = this.children[2].children;
-//   //TODO 把子元素的位置改变
-//
-//   Block[] blocks = new Block[4];
-//   blocks[0] = block0;
-//   blocks[1] = block1;
-//   blocks[2] = block2;
-//   blocks[3] = block3;
-//   this.children = blocks;
-//   for(Block block : blocks){
-//    block.reflect(direction);
-//   }
-//
-//  } else{
-//   Block block0 = new Block();
-//   block0.xCoord = this.children[0].xCoord;
-//   block0.yCoord = this.children[0].yCoord;
-//   block0.color = this.children[1].color;
-//   block0.size = this.children[0].size;
-//   block0.maxDepth = this.children[0].maxDepth;
-//   block0.level = this.children[0].level;
-//   block0.children = this.children[1].children;
-//   //TODO 把子元素的位置改变
-//
-//   Block block3 = new Block();
-//   block3.xCoord = this.children[3].xCoord;
-//   block3.yCoord = this.children[3].yCoord;
-//   block3.color = this.children[2].color;
-//   block3.size = this.children[3].size;
-//   block3.maxDepth = this.children[3].maxDepth;
-//   block3.level = this.children[3].level;
-//   block3.children = this.children[2].children;
-//   //TODO 把子元素的位置改变
-//
-//   Block block2 = new Block();
-//   block2.xCoord = this.children[2].xCoord;
-//   block2.yCoord = this.children[2].yCoord;
-//   block2.color = this.children[3].color;
-//   block2.size = this.children[2].size;
-//   block2.maxDepth = this.children[2].maxDepth;
-//   block2.level = this.children[2].level;
-//   block2.children = this.children[3].children;
-//   //TODO 把子元素的位置改变
-//
-//
-//   Block block1 = new Block();
-//   block1.xCoord = this.children[1].xCoord;
-//   block1.yCoord = this.children[1].yCoord;
-//   block1.color = this.children[0].color;
-//   block1.size = this.children[1].size;
-//   block1.maxDepth = this.children[1].maxDepth;
-//   block1.level = this.children[1].level;
-//   block1.children = this.children[0].children;
-//   //TODO 把子元素的位置改变
-//
-//   Block[] blocks = new Block[4];
-//   blocks[0] = block0;
-//   blocks[1] = block1;
-//   blocks[2] = block2;
-//   blocks[3] = block3;
-//   this.children = blocks;
-//
-//   for(Block block : blocks){
-//    block.reflect(direction);
-//   }
-//  }
-  if(direction == 1){
+
+  if(direction == 0){
    this.children[0].turnDown();
    this.children[1].turnDown();
    this.children[2].turnUp();
@@ -339,6 +255,9 @@ public class Block {
   * counterclockwise. If this Block has no children, do nothing.
   */
  public void rotate(int direction) {
+  /*
+   * ADD YOUR CODE HERE
+   */
   if(direction != 0 && direction != 1){
    throw new IllegalArgumentException("Invalid direction: " + direction);
   }
@@ -392,6 +311,9 @@ public class Block {
   * 
   */
  public boolean smash() {
+  /*
+   * ADD YOUR CODE HERE
+   */
   if(this.level == 0 || this.level == this.maxDepth){
    return false;
   }
@@ -454,6 +376,9 @@ public class Block {
   * arr[0][0] is the color of the unit cell in the upper left corner of this Block.
   */
  public Color[][] flatten() {
+  /*
+   * ADD YOUR CODE HERE
+   */
   int len = (int)pow(2, this.maxDepth - this.level);
   Color[][] flatten_color = new Color[len][len];
   if(this.children.length == 0){
@@ -508,6 +433,10 @@ public class Block {
  }
 
 
+ /*
+  * The next 5 methods are needed to get a text representation of a block. 
+  * You can use them for debugging. You can modify these methods if you wish.
+  */
  public String toString() {
   return String.format("pos=(%d,%d), size=%d, level=%d"
     , this.xCoord, this.yCoord, this.size, this.level);
@@ -556,9 +485,11 @@ public class Block {
   }
  }
 
- public static void main(String[] args) {
-  Block block = new Block(0, 5);
-  block.updateSizeAndPosition(64, 0, 0);
-  block.printColoredBlock();
- }
+// public static void main(String[] args) {
+//  Block.gen = new Random(2);
+//  Block b = new Block(0, 2);
+//  b.updateSizeAndPosition(16, 0, 0);
+//  Block b1 = b.getSelectedBlock(3, 5, 2);
+//  b.printColoredBlock();
+// }
 }
