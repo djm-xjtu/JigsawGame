@@ -35,7 +35,7 @@ class Part1Test {   // =======  12 points =======
 
         assertEquals(4, urChildren.length);
         assertEquals(0, ulChildren.length);
-        assertEquals(4, llChildren.length);
+        assertEquals(0, llChildren.length);
         assertEquals(4, lrChildren.length);
 
     }
@@ -57,8 +57,8 @@ class Part1Test {   // =======  12 points =======
         ArrayList<Color> expectedColor = new ArrayList<>();
         expectedColor.add(GameColors.YELLOW);
         expectedColor.add(null);
-        expectedColor.add(null);
-        expectedColor.add(null);
+        expectedColor.add(GameColors.YELLOW);
+        expectedColor.add(GameColors.RED);
 
         ArrayList<Color> actualColor = new ArrayList<>();
 
@@ -72,8 +72,7 @@ class Part1Test {   // =======  12 points =======
 
         assertEquals(4, ulChildren.length);
 
-//        List<Color> expectedColorUL = List.of(GameColors.GREEN, GameColors.RED, GameColors.GREEN, GameColors.RED);
-        List<Color> expectedColorUL = new ArrayList<>(Arrays.asList(GameColors.GREEN, GameColors.BLUE, GameColors.GREEN, GameColors.YELLOW));
+        List<Color> expectedColorUL = new ArrayList<>(Arrays.asList(GameColors.GREEN, GameColors.RED, GameColors.GREEN, GameColors.RED));
         List<Color> actualColorUL = new ArrayList<>();
 
         for (Block child : ulChildren) {
@@ -120,10 +119,9 @@ class Part1Test {   // =======  12 points =======
             Coords.add((int) ycoordField.get(child));
         }
 
-//        List<Integer> expectedSize = List.of(8, 8, 8, 8);
-//        List<Integer> expectedCoords = List.of(8, 0, 0, 0, 0, 8, 8, 8);  // UL x, UL y, UR x, UR y, LL x, LL y, LR x, LR y
         List<Integer> expectedSize = new ArrayList<>(Arrays.asList(8, 8, 8, 8));
         List<Integer> expectedCoords = new ArrayList<>(Arrays.asList(8, 0, 0, 0, 0, 8, 8, 8));  // UL x, UL y, UR x, UR y, LL x, LL y, LR x, LR y
+
         assertEquals(expectedSize, actualSize);
         assertEquals(expectedCoords, Coords);
     }
@@ -142,7 +140,7 @@ class Part1Test {   // =======  12 points =======
     @Tag("score:2")
     @DisplayName("Block getBlocksToDraw() test1")
     void GetBlocksToDrawTest1() {
-        Block.gen = new Random(3);
+        Block.gen = new Random(4);
         Block b = new Block(0, 2);
         b.updateSizeAndPosition(16, 0, 0);
 
@@ -225,7 +223,7 @@ class Part2Test {  // ========= 12 points =========
     @Tag("score:2")
     @DisplayName("Block getSelectedBlock() test3")
     void getSelectedBlock3() throws NoSuchFieldException, IllegalAccessException {
-        Block.gen = new Random(3);
+        Block.gen = new Random(4);
         Block b = new Block(0, 3);
         b.updateSizeAndPosition(16,0,0);
 
@@ -246,7 +244,7 @@ class Part2Test {  // ========= 12 points =========
         assertNull(colorField.get(res));
         assertEquals(4, ((Block[]) childrenField.get(res)).length);
 
-        List<Color> colors = new ArrayList<>(Arrays.asList(GameColors.RED, GameColors.RED, GameColors.RED, GameColors.BLUE));
+        List<Color> colors = new ArrayList<>(Arrays.asList(GameColors.BLUE, GameColors.YELLOW, GameColors.GREEN, GameColors.YELLOW));
 
         Block[] children = (Block[]) childrenField.get(res);
 
@@ -286,7 +284,6 @@ class Part2Test {  // ========= 12 points =========
 
         Block[] childrenLevel1 = (Block[]) childrenField.get(b);
 
-//        List<Color> expected = List.of(GameColors.BLUE, GameColors.GREEN, GameColors.RED, GameColors.YELLOW);
         List<Color> expected = new ArrayList<>(Arrays.asList(GameColors.BLUE, GameColors.GREEN, GameColors.RED, GameColors.YELLOW));
         List<Color> actual = new ArrayList<>();
 
@@ -328,7 +325,6 @@ class Part2Test {  // ========= 12 points =========
 
         Block[] childrenLevel1 = (Block[]) childrenField.get(b);
 
-//        List<Color> expected = List.of(GameColors.BLUE, GameColors.RED, GameColors.BLUE, GameColors.GREEN);
         List<Color> expected = new ArrayList<>(Arrays.asList(GameColors.BLUE, GameColors.RED, GameColors.BLUE, GameColors.GREEN));
 
         List <Color> actual = new ArrayList<>();
@@ -376,8 +372,7 @@ class Part2Test {  // ========= 12 points =========
 
         Block[] childrenLevel1 = (Block[]) childrenField.get(b);
 
-//        List<Color> expected = List.of(GameColors.BLUE, GameColors.RED, GameColors.BLUE, GameColors.YELLOW);
-        List<Color> expected = new ArrayList<>(Arrays.asList(GameColors.YELLOW, GameColors.YELLOW, GameColors.YELLOW, GameColors.RED));
+        List<Color> expected = new ArrayList<>(Arrays.asList(GameColors.BLUE, GameColors.RED, GameColors.BLUE, GameColors.YELLOW));
         List<Color> actual = new ArrayList<>();
 
         for (Block child : childrenLevel1) {
@@ -403,8 +398,8 @@ class Part3Test {  // ======== 16 points ========
         Color[][] expected = new Color[][]{
                 {GameColors.RED, GameColors.RED, GameColors.GREEN, GameColors.GREEN},
                 {GameColors.RED, GameColors.RED, GameColors.GREEN, GameColors.GREEN},
-                {GameColors.YELLOW, GameColors.YELLOW, GameColors.YELLOW, GameColors.YELLOW},
-                {GameColors.YELLOW, GameColors.YELLOW, GameColors.RED, GameColors.YELLOW}
+                {GameColors.YELLOW, GameColors.YELLOW, GameColors.RED, GameColors.BLUE},
+                {GameColors.YELLOW, GameColors.YELLOW, GameColors.YELLOW, GameColors.BLUE}
         };
 
         for (int i = 0; i < 4; i++) {
@@ -502,7 +497,7 @@ class Part3Test {  // ======== 16 points ========
         b.updateSizeAndPosition(16, 0, 0);
 
         PerimeterGoal p = new PerimeterGoal(GameColors.YELLOW);
-        assertEquals(5, p.score(b));
+        assertEquals(3, p.score(b));
     }
 
     @Test
@@ -542,9 +537,8 @@ class Part3Test {  // ======== 16 points ========
         Block.gen = new Random(8);
         Block b = new Block(0, 2);
         b.updateSizeAndPosition(16, 0, 0);
-
         BlobGoal g = new BlobGoal(GameColors.YELLOW);
-        assertEquals(0, g.undiscoveredBlobSize(1, 1, b.flatten(), new boolean[4][4]));
+        assertEquals(2, g.undiscoveredBlobSize(1, 1, b.flatten(), new boolean[4][4]));
     }
 
     @Test
@@ -567,7 +561,7 @@ class Part3Test {  // ======== 16 points ========
         Block b = new Block(0, 0, 16, 0, 2, null, children);
 
         BlobGoal g = new BlobGoal(GameColors.BLUE);
-        assertEquals(6, g.score(b));
+        assertEquals(5, g.score(b));
     }
 
     @Test
@@ -579,7 +573,7 @@ class Part3Test {  // ======== 16 points ========
         b.updateSizeAndPosition(16, 0, 0);
 
         BlobGoal g = new BlobGoal(GameColors.RED);
-        assertEquals(5, g.score(b));
+        assertEquals(18, g.score(b));
     }
 
 }

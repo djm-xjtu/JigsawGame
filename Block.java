@@ -51,10 +51,9 @@ public class Block {
    */
   this.level = lvl;
   this.maxDepth = maxDepth;
-  boolean split = gen.nextDouble() < exp(-0.25*lvl);
-  if(lvl == maxDepth) split = false;
-
-  if(split){
+//  boolean split = gen.nextDouble() < exp(-0.25*lvl);
+//  if(lvl == maxDepth) split = false;
+  if(lvl < maxDepth && gen.nextDouble() < exp(-0.25*lvl)){
    Block[] blocks = new Block[4];
    blocks[0] = new Block(lvl+1, maxDepth);
    blocks[1] = new Block(lvl+1, maxDepth);
@@ -62,6 +61,7 @@ public class Block {
    blocks[3] = new Block(lvl+1, maxDepth);
    this.children = blocks;
   } else{
+//   int colorNum = abs(gen.nextInt()%4);
    int colorNum = gen.nextInt(4);
    this.color = BLOCK_COLORS[colorNum];
    this.children = new Block[0];
@@ -486,10 +486,10 @@ public class Block {
  }
 
 // public static void main(String[] args) {
-//  Block.gen = new Random(2);
-//  Block b = new Block(0, 2);
+//  Block.gen.setSeed(4);
+//  Block b = new Block(0, 3);
 //  b.updateSizeAndPosition(16, 0, 0);
 //  Block b1 = b.getSelectedBlock(3, 5, 2);
-//  b.printColoredBlock();
+//  b1.printBlock();
 // }
 }

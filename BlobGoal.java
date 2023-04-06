@@ -1,7 +1,5 @@
 package assignment3;
 
-import javafx.util.Pair;
-
 import java.awt.Color;
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -46,17 +44,18 @@ public class BlobGoal extends Goal{
 		Queue<int[]> q = new ArrayDeque<>();
 		int[] a = {i, j};
 		q.add(a);
-		int count = 1;
+		visited[i][j] = true;
+		int count = 0;
 		int[] dx = {-1, 0, 1, 0};
 		int[] dy = {0, -1, 0, 1};
 		while(!q.isEmpty()) {
 			int[] t = q.poll();
+			count++;
 			for(int k = 0; k < 4; k++){
 				int nx = t[0] + dx[k];
 				int ny = t[1] + dy[k];
 				if(nx >= 0 && nx < unitCells.length && ny >= 0 && ny < unitCells[0].length && !visited[nx][ny] && unitCells[nx][ny] == this.targetGoal){
 					visited[nx][ny] = true;
-					count++;
 					q.add(new int[]{nx, ny});
 				}
 			}
